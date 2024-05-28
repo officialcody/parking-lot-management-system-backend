@@ -1,0 +1,29 @@
+import ParkingLot from "../models/ParkingLot.mjs";
+
+export default async function deallocateSlotFromCar(req, res) {
+  const { slotNumber } = req.body;
+  function getSlotSize(initial) {
+    if (initial === "S") {
+      return "Small";
+    } else if (initial === "M") {
+      return "Medium";
+    } else if (initial === "L") {
+      return "Large";
+    } else if (initial === "X") {
+      return "XLarge";
+    }
+  }
+  let slotString = slotNumber.split(" ");
+  let floorNumber = slotString[1];
+  let slotSize = getSlotSize(slotString[3].split("")[0]);
+  const parkingLot = await ParkingLot.findById(req.params.parkingLotId);
+
+  const floor = parkingLot.floors[floorNumber - 1];
+  const slotToBeFreed = floor.slots.find((slot) => slot.size === slotSize);
+  if (slotToBeFreed) {
+    slotToBeFreed.isOccupied -= 1;
+    await parkingLot.save();
+    return res.json({ message: "Slot Freed" });
+  }
+  res.json({ message: "Car not found" });
+}
