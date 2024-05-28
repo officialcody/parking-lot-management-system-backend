@@ -20,10 +20,19 @@ export default async function deallocateSlotFromCar(req, res) {
 
   const floor = parkingLot.floors[floorNumber - 1];
   const slotToBeFreed = floor.slots.find((slot) => slot.size === slotSize);
-  if (slotToBeFreed) {
-    slotToBeFreed.isOccupied -= 1;
-    await parkingLot.save();
-    return res.json({ message: "Slot Freed" });
+  try {
+    if (slotToBeFreed && isOccupied > 0) {
+      slotToBeFreed.isOccupied -= 1;
+      await parkingLot.save();
+      return res.json({ status: 200, message: "Slot Freed" });
+    } else {
+      return res.json({ status: 400, message: "No Car found on this Slot" });
+    }
+  } catch (e) {
+    return res.json({
+      status: 500,
+      message: "Something went wrong",
+      error: e,
+    });
   }
-  res.json({ message: "Car not found" });
 }
