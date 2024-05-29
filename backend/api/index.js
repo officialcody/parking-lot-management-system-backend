@@ -25,6 +25,10 @@ app.post("/allocateSlot/:parkingLotId", allocateSlotToCar);
 // Deallocate a slot from a car
 app.post("/deallocateSlot/:parkingLotId", deallocateSlotFromCar);
 
+app.get("/", (req, res) => {
+  res.send("<h1>Hello There</h1>");
+});
+
 app.listen(4000, () => {
   console.log("Server is running on port 4000");
 });
