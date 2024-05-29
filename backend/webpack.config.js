@@ -19,7 +19,6 @@ export default {
   },
   output: {
     path: path.join(process.cwd(), "dist"),
-    publicPath: "/",
     filename: "final.js",
   },
   target: "node",
