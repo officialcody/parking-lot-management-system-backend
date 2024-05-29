@@ -2,7 +2,7 @@ import path from "path";
 
 export default {
   mode: "production",
-  entry: "./index.js",
+  entry: "./api/index.js",
   resolve: {
     fallback: {
       aws4: false,

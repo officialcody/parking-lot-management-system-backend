@@ -1,11 +1,11 @@
 import express from "express";
 import bodyParser from "body-parser";
 import cors from "cors";
-import connect from "./db/connection.js";
-import createParkingLot from "./api/createParkingLot.js";
-import allocateSlotToCar from "./api/allocateSlotToCar.js";
-import deallocateSlotFromCar from "./api/deallocateSlotFromCar.js";
-import getParkingLots from "./api/getParkingLots.js";
+import connect from "../db/connection.js";
+import createParkingLot from "./createParkingLot.js";
+import allocateSlotToCar from "./allocateSlotToCar.js";
+import deallocateSlotFromCar from "./deallocateSlotFromCar.js";
+import getParkingLots from "./getParkingLots.js";
 
 const app = express();
 app.use(cors());
